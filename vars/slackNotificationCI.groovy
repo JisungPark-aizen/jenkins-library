@@ -46,9 +46,13 @@ def call(String channel="jenkins-slack", String title="jenkins", String status="
             ]
         ]
     ]
+    if(env.GIT_URL.contains("codecommit")) {
+        
+    }
 
-    
-    
+    https://git-codecommit.
+    https://ap-northeast-2.amazonaws.com/v1/repos/jenkins-test-git
+    https://ap-northeast-2.console.aws.amazon.com/codesuite/codecommit/repositories/aiz-ccn-hub-frontend-fo/commit/3ba1b750c6852000fb4a8194cbf6fb7da5d094eb
 }
 
 def slackMdFields(String message="") {
