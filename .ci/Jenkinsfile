@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage ("test") {
             steps {
-                sendNotifications
+                sh "env"
             }
         }
     }
