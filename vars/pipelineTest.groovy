@@ -2,6 +2,11 @@
 
 def call() {
     stage("lib") {
+        echo "lib"
+    }
+    stage("build") {
+        echo "build"
+        echo env
         env
     }
 }
