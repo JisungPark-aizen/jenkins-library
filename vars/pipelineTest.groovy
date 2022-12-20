@@ -6,7 +6,10 @@ def call() {
     echo "${JENKINS_HOME}"
     echo "${env.JENKINS_HOME}"
     
-    if(env.GIT_URL.contains("com")) {
+    if(env.GIT_URL.contains("github")) {
+        echo "success"
+        echo "${env.GIT_URL}"
+    } else {
         echo "${env.GIT_URL}"
     }
 }
