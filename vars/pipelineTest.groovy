@@ -6,6 +6,8 @@ def call() {
     }
     stage("build") {
         echo "build"
-        env
+        sh "env"
+        echo "${JENKINS_HOME}"
+        echo "${env.JENKINS_HOME}"
     }
 }
