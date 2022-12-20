@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage ("test") {
             steps {
-                slackNotification(channel="slack-test")
+                slackNotificationCI(channel="slack-test")
             }
         }
     }
