@@ -2,6 +2,6 @@
 
 def call() {
     stage("lib") {
-        echo "test"
+        env
     }
 }
