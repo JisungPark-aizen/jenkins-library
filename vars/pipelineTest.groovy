@@ -2,8 +2,6 @@
 
 def call() {
     stage("lib") {
-        steps {
-            echo "test"
-        }
+        echo "test"
     }
 }
