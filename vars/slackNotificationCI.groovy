@@ -31,7 +31,7 @@ def call(String channel="jenkins-slack", String title="jenkins", String status="
                     "text": [
                         "type": "plain_text",
                         "text": title,
-                        "emoji": ture
+                        "emoji": true
                     ]
                 ],
                 [
