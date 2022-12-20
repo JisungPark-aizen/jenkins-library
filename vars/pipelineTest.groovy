@@ -6,7 +6,6 @@ def call() {
     }
     stage("build") {
         echo "build"
-        echo env
         env
     }
 }
