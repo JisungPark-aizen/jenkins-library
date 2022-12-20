@@ -29,17 +29,26 @@ def call(String channel="jenkins-slack", String title="jenkins", String status="
                 [
                     "type": "section",
                     "fields": [
-                        slackMdFields("*TimeStampe:*\n${current_time}")
+                        [
+                            "type": "mrkdwn",
+                            "text": "*Branch:*\n${env.GIT_BRANCH}"
+                        ],
+                        [
+                            "type": "mrkdwn",
+                            "text": "*Date:*\n${current_time}"
+                        ],
+                        [
+                            "type": "mrkdwn",
+                            "text": "*Job URL:*\n<${env.RUN_DISPLAY_URL}|Jenkins Job>"
+                        ]
                     ]
                 ]
             ]
         ]
     ]
 
-    if(body.BRANCH) {
-        attachments.getAt(0).blocks.getAt(1).fields.add(slackMdFields("text": "*Branch:*\n${body.BRANCH}"))
-    }
-    print()
+    
+    
 }
 
 def slackMdFields(String message="") {
