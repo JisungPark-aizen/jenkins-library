@@ -30,12 +30,9 @@ def call(Map git_info = [:]) {
 
     // Version관리 repo에 push
     dir("version") {
-        sh "git config user.email jenkins"
-        sh "git config user.name jenkins@aizen.co"
-
         sh "git add CHANGELOG.md"
         sh "git commit -m ${release_version}"
-        withCredentials([gitUsernamePassword(credentialsId: env.GIT_CREDIT_NAME, gitToolName: 'git-tool')]) {
+        withCredentials([gitUsernamePassword(credentialsId: git_info.credentials, gitToolName: 'git-tool')]) {
             sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${git_info.url} HEAD:${git_info.version_branch}"
         }
     }
