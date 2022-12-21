@@ -12,7 +12,7 @@ def call(Map git_info = [:]) {
     dir("version") {
         git branch: git_info.version_branch,
         credentialsId: git_info.credentials,
-        url: "https://${git_info.url}"
+        url: git_info.url
 
         if (fileExists('CHANGELOG.md')) {
             // 이전 변경 이력에 이어서 이력을 남기기 위해 저장된 CHANGELOG파일 이동
