@@ -41,7 +41,7 @@ def call(Map git_info = [:]) {
     }
 
     withCredentials([gitUsernamePassword(credentialsId: git_info.credentials, gitToolName: 'git-tool')]) {
-        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${git_info.url} HEAD:${env.Branch} --tags"
+        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${git_info.url} HEAD:${env.GIT_BRANCH} --tags"
     }
 
     sh "env"
