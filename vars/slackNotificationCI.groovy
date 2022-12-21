@@ -2,7 +2,7 @@
 
 // CI Message
 
-def call(String channel="jenkins-slack", String title="jenkins", String status="failure", Map fields=[:]) {
+def call(String channel="jenkins-slack", String status="", Map fields=[:]) {
     current_time = sh(script: "date", returnStdout: true).trim()
     repository_name = env.GIT_URL.split('/').last()
     git_url_regex = ".*[^\\.git]"
@@ -12,10 +12,13 @@ def call(String channel="jenkins-slack", String title="jenkins", String status="
     success_color = "#18be52" // green
     
     if (status == "start") {
+        title = "${repository_name} - CI Start"
         color = start_color
     } else if(status == "failure") {
+        title = "${repository_name} - CI Failure"
         color = failure_color
     } else if(status == "success") {
+        title = "${repository_name} - CI Success"
         color = success_color
     } else {
         error("not status")
