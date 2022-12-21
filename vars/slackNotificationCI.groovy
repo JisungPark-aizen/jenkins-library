@@ -64,7 +64,7 @@ def call(String channel="jenkins-slack", String title="jenkins", String status="
 
     if (!fields.isEmpty()) {
         fields.each { it ->
-            attachments.getAt.blocks.getAt(1).fields.add(it)
+            attachments.getAt(0).blocks.getAt(1).fields.add(it)
         }
     }
 
