@@ -40,8 +40,9 @@ def call(Map git_info = [:]) {
         }
     }
 
+    GIT_URL = env.GIT_URL.findAll("(http|https)?:\\/\\/(\\S+)")[2]
     withCredentials([gitUsernamePassword(credentialsId: git_info.credentials, gitToolName: 'git-tool')]) {
-        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${env.GIT_URL} HEAD:${env.GIT_BRANCH} --tags"
+        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${GIT_URL} HEAD:${env.GIT_BRANCH} --tags"
     }
 
     sh "env"
