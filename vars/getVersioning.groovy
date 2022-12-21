@@ -6,9 +6,6 @@ def call(Map git_info = [:]) {
         sh "rm ${changelog_file}"
     }
 
-    echo "${git_info.version_branch}" 
-    echo "${git_info.credentials}"
-    echo "https://${git_info.url}"
     // Version 관리 Git clone
     dir("version") {
         git branch: git_info.version_branch,
