@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call(String ecr_credit_name="", String ecr_repo_name="", String include_tag="", String exclude_tag="", Int limit=10) {
+def call(String ecr_credit_name="", String ecr_repo_name="", String include_tag="", String exclude_tag="", int limit=10) {
     ecr_script = """
 import jenkins.model.*
 
