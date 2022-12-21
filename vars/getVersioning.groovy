@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call(Map git_info = [:], Boolean compare="false") {
+def call(Map git_info = [:], Boolean compare=false) {
     regex_url_pattern = "(http|https)?:\\/\\/(\\S+)"
 
     // Pipeline 시작 시 최신 Tag가 확인되지 않아 명령어로 Tag Pull
