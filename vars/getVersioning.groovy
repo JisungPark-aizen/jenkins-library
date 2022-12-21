@@ -44,6 +44,7 @@ def call(Map git_info = [:]) {
         sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${git_info.url} HEAD:${env.Branch} --tags"
     }
 
+    sh "env"
     return release_version
 }
 
