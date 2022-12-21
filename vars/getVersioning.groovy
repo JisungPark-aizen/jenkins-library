@@ -2,6 +2,7 @@
 
 def call(Map git_info = [:], Boolean compare=false) {
     regex_url_pattern = "(http|https)?:\\/\\/(\\S+)"
+    changelog_file = 'CHANGELOG.md'
 
     // Pipeline 시작 시 최신 Tag가 확인되지 않아 명령어로 Tag Pull
     withCredentials([gitUsernamePassword(credentialsId: git_info.credentials, gitToolName: 'git-tool')]) {
@@ -9,14 +10,13 @@ def call(Map git_info = [:], Boolean compare=false) {
     }
     current_version = getGitTag()
 
-    commit_check = sh(script: "git diff ${env.GIT_COMMIT} ${current_version}", returnStdout: true).trim()
+    commit_check = gitCommitCompare(env.GIT_COMMIT, current_version)
     if(compare && commit_check) {
         error("not match compare")
     } else if(!commit_check) {
         return current_version
     }
 
-    changelog_file = 'CHANGELOG.md'
     if (fileExists(changelog_file)) {
         sh "rm ${changelog_file}"
     }
@@ -60,4 +60,9 @@ def call(Map git_info = [:], Boolean compare=false) {
     }
 
     return release_version
+}
+
+def gitCommitCompare(String source, String target) {
+    def result = sh(script: "git diff ${source} ${target}", returnStdout: true).trim()
+    return result
 }
