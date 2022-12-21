@@ -3,6 +3,11 @@
 def call(Map git_info = [:]) {
     regex_url_pattern = "(http|https)?:\\/\\/(\\S+)"
 
+    // Pipeline 시작 시 최신 Tag가 확인되지 않아 명령어로 Tag Pull
+    withCredentials([gitUsernamePassword(credentialsId: git_info.credentials, gitToolName: 'git-tool')]) {
+        sh 'git fetch origin --tags'
+    }
+
     changelog_file = 'CHANGELOG.md'
     if (fileExists(changelog_file)) {
         sh "rm ${changelog_file}"
