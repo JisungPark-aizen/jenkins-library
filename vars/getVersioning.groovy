@@ -8,7 +8,7 @@ def call(Map git_info = [:]) {
 
     // Version 관리 Git clone
     dir("version") {
-        git branch: git_info.version_branch
+        git branch: git_info.version_branch,
         credentialsId: git_info.credentials,
         url: "https://${git_info.url}"
 
