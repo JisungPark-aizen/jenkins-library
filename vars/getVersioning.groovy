@@ -1,6 +1,8 @@
 #!/usr/bin/env groovy
 
 def call(Map git_info = [:]) {
+    regex_url_pattern = "(http|https)?:\\/\\/(\\S+)"
+
     changelog_file = 'CHANGELOG.md'
     if (fileExists(changelog_file)) {
         sh "rm ${changelog_file}"
@@ -23,7 +25,7 @@ def call(Map git_info = [:]) {
     sh "mv CHANGELOG.md version/"
 
     // standard-version으로 생성된 현재 버전 가져오기
-    release_version = get_git_first_tagname()
+    release_version = getGitTag()
 
     // Version관리 repo에 push
     dir("version") {
@@ -32,20 +34,17 @@ def call(Map git_info = [:]) {
 
         sh "git add CHANGELOG.md"
         sh "git commit -m ${release_version}"
+        
+        version_git_url = (git_info.url =~ regex_url_pattern)[0][2]
         withCredentials([gitUsernamePassword(credentialsId: git_info.credentials, gitToolName: 'git-tool')]) {
-            sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${git_info.url} HEAD:${git_info.version_branch}"
+            sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${version_git_url} HEAD:${git_info.version_branch}"
         }
     }
 
-    git_url = (env.GIT_URL =~ "(http|https)?:\\/\\/(\\S+)")[0][2]
+    git_url = (env.GIT_URL =~ regex_url_pattern)[0][2]
     withCredentials([gitUsernamePassword(credentialsId: git_info.credentials, gitToolName: 'git-tool')]) {
         sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${git_url} --tags"
     }
 
     return release_version
-}
-
-def get_git_first_tagname() {
-    result = sh(script: "git tag --list --sort=-v:refname | cat | head -n 1", returnStdout: true).trim()
-    return result
 }
